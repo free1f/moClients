@@ -19,6 +19,32 @@ select {
   padding: 0 1rem;
 }
 
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.filterContainer {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.header {
+  width: 20%;
+  font-weight: bold;
+}
+
+.body {
+  width: 20%;
+  font-weight: 200;
+  word-wrap: break-word;
+}
+
+.buttonAction {
+  margin: 0 1rem;
+}
+
 .orderByName {
   font-size: 14px;
   width: 20%;
@@ -33,12 +59,23 @@ select {
 }
 
 .inputFormContainer {
-  display: "flex";
-  width: "100%";
+  display: flex;
+  width: 100%;
 }
 
 .inputForm {
   width: 20%;
+}
+
+.noResults {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 600px) {
@@ -60,7 +97,12 @@ select {
   .inputFormContainer {
     justify-content: space-around;
   }
+
   .inputForm {
     width: 10%;
+  }
+
+  .buttonAction {
+    margin: 0;
   }
 }

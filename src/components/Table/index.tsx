@@ -41,6 +41,12 @@ const Table = () => {
       : copyList.sort(compareByName);
     setList(orderedList);
     setOrderByAsc(!orderByAsc);
+    dispatchGlobal({
+      type: "UPDATE_CLIENT",
+      payload: {
+        newList: orderedList,
+      },
+    });
   };
 
   const updateOption = (value: string) => {
@@ -75,21 +81,15 @@ const Table = () => {
 
   return (
     <section className="tableContainer">
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginBottom: "2rem",
-        }}
-      >
+      <section className="headerContainer">
         <div style={{ display: "flex" }}>
-          <div style={{ width: "20%" }}>Name</div>
-          <div style={{ width: "20%" }}>Date of birth</div>
-          <div style={{ width: "20%" }}>Email</div>
-          <div style={{ width: "20%" }}>Status</div>
-          <div style={{ width: "20%" }}>Actions</div>
+          <div className="header">Name</div>
+          <div className="header">Date of birth</div>
+          <div className="header">Email</div>
+          <div className="header">Status</div>
+          <div className="header">Actions</div>
         </div>
-        <div style={{ display: "flex", marginTop: "1rem" }}>
+        <div className="filterContainer">
           <div className="orderByName">
             <button onClick={() => sortByName()}>↑↓</button>
           </div>
@@ -105,25 +105,32 @@ const Table = () => {
           </div>
         </div>
       </section>
-      <section style={{ display: "flex", flexWrap: "wrap" }}>
+      <section className="listContainer">
         {list.length ? (
           list.map((client, index) => {
             return globalState.editRow != index ? (
               <div
                 key={`${client.name}-${index}`}
-                style={{ display: "flex", width: "100%" }}
+                className="inputFormContainer"
               >
-                <div style={{ width: "20%" }}>{client.name}</div>
-                <div style={{ width: "20%", wordWrap: "break-word" }}>
-                  {client.date}
-                </div>
-                <div style={{ width: "20%", wordWrap: "break-word" }}>
-                  {client.email}
-                </div>
-                <div style={{ width: "20%" }}>{client.status}</div>
-                <div style={{ width: "20%" }}>
-                  <button onClick={() => editClient(index)}>Edit</button>
-                  <button onClick={() => removeClient(index)}> Remove</button>
+                <div className="body">{client.name}</div>
+                <div className="body">{client.date}</div>
+                <div className="body">{client.email}</div>
+                <div className="body">{client.status}</div>
+                <div className="body">
+                  <button
+                    className="buttonAction"
+                    onClick={() => editClient(index)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="buttonAction"
+                    onClick={() => removeClient(index)}
+                  >
+                    {" "}
+                    Remove
+                  </button>
                 </div>
               </div>
             ) : (
@@ -132,13 +139,14 @@ const Table = () => {
                 initName={client.name}
                 initDate={client.date}
                 initEmail={client.email}
+                initStatus={client.status}
                 edit={true}
                 index={index}
               />
             );
           })
         ) : (
-          <div>
+          <div className="noResults">
             <div>Nothing to see here...</div>
           </div>
         )}

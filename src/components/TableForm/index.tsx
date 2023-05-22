@@ -7,6 +7,7 @@ type InitTableProps = {
   initName?: string;
   initDate?: string;
   initEmail?: string;
+  initStatus?: string;
   edit?: boolean;
   index?: number;
 };
@@ -15,13 +16,14 @@ const Table = ({
   initName,
   initDate,
   initEmail,
+  initStatus,
   edit,
   index,
 }: InitTableProps) => {
   const [name, setName] = useState(initName || "");
   const [date, setDate] = useState(initDate || "");
   const [email, setEmail] = useState(initEmail || "");
-  const [status, setStatus] = useState(statuses[0]);
+  const [status, setStatus] = useState(initStatus || statuses[0]);
   const [error, setError] = useState("");
   const { globalState, dispatchGlobal } = useGlobalContext();
 
@@ -49,6 +51,7 @@ const Table = ({
     const clientList = [...globalState.list];
     if (typeof index === "number")
       clientList[index] = { name, date, email, status };
+
     dispatchGlobal({
       type: "UPDATE_CLIENT",
       payload: {
@@ -110,7 +113,7 @@ const Table = ({
         </div>
         <div className="inputForm">
           <button onClick={() => (edit ? updateClient() : saveNewClient())}>
-            Save
+            {edit ? "Update" : "Save"}
           </button>
         </div>
       </section>
